@@ -110,12 +110,14 @@
 
   <script>
     (function() {
-      // Parse path: /daniewatch-app.github.io/movie/123 or /tv/456
-      const parts = window.location.pathname.split('/').filter(Boolean);
-      // Strip repo subpath if present
+      // Path is now clean: /movie/123 or /tv/456 (no repo subpath on Vercel)
+      var parts = window.location.pathname.split('/').filter(Boolean);
+
+      // Backward compat: strip old repo subpath if still present (e.g. GitHub Pages)
       if (parts.length > 0 && parts[0] === 'daniewatch-app.github.io') parts.shift();
-      const mediaType = parts[0]; // 'movie' or 'tv'
-      const id = parts[1];        // TMDB ID
+
+      var mediaType = parts[0]; // 'movie' or 'tv'
+      var id = parts[1];        // TMDB ID
 
       if (!mediaType || !id) {
         document.getElementById('status').textContent = 'Invalid link';
@@ -123,16 +125,16 @@
       }
 
       // Build the custom scheme deep link for the app
-      const appLink = 'daniewatch://' + mediaType + '/' + id;
+      var appLink = 'daniewatch://' + mediaType + '/' + id;
 
       // Update UI
-      const label = mediaType === 'tv' ? 'TV Show' : 'Movie';
+      var label = mediaType === 'tv' ? 'TV Show' : 'Movie';
       document.getElementById('content-type').textContent = label;
       document.getElementById('content-title').textContent = 'View this ' + label + ' in DanieWatch';
       document.getElementById('open-btn').href = appLink;
 
       // Try to open the app immediately via intent
-      const iframe = document.createElement('iframe');
+      var iframe = document.createElement('iframe');
       iframe.style.display = 'none';
       iframe.src = appLink;
       document.body.appendChild(iframe);

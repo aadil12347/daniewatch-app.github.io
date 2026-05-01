@@ -79,9 +79,8 @@
   <script>
     (function() {
       var parts = window.location.pathname.split('/').filter(Boolean);
-      // Strip repo subpath if present (daniewatch-app.github.io)
+      // Backward compat: strip old repo subpath if present
       if (parts.length > 0 && parts[0] === 'daniewatch-app.github.io') parts.shift();
-      // Expected: movie/123 or tv/456
       var mediaType = parts[0];
       var id = parts[1];
       if (mediaType && id) {
