@@ -110,8 +110,10 @@
 
   <script>
     (function() {
-      // Parse path: /movie/123 or /tv/456
+      // Parse path: /daniewatch-app.github.io/movie/123 or /tv/456
       const parts = window.location.pathname.split('/').filter(Boolean);
+      // Strip repo subpath if present
+      if (parts.length > 0 && parts[0] === 'daniewatch-app.github.io') parts.shift();
       const mediaType = parts[0]; // 'movie' or 'tv'
       const id = parts[1];        // TMDB ID
 
